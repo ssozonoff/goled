@@ -221,7 +221,7 @@ func (s *DisplayBuffer) WriteString(text string, x int32, y int32, size int32) {
 		t := findCharBuf(string(text[i]))
 		letter := readCharBytes(t)
 		s.drawChar(letter, cursor, y, size)
-		cursor = cursor + int32(Font8x16.Width)*size //Espaçamento entre as letras
+		cursor = cursor + int32(Font6x8.Width)*size //Espaçamento entre as letras
 	}
 }
 
@@ -250,11 +250,11 @@ func (s *DisplayBuffer) drawChar(byteArray [][]byte, xpos int32, ypos int32, siz
 
 // find where the character exists within the font object
 func findCharBuf(c string) []byte {
-	pos := indexOf(c, Font8x16.Lookup)
+	pos := indexOf(c, Font6x8.Lookup)
 	// use the lookup array as a ref to find where the current char bytes start
-	cBufPos := pos * Font8x16.Width
+	cBufPos := pos * Font6x8.Width
 	// slice just the current char's bytes out of the fontData array and return
-	cBuf := Font8x16.Font[cBufPos : cBufPos+Font8x16.Width]
+	cBuf := Font6x8.Font[cBufPos : cBufPos+Font6x8.Width]
 	//fmt.Println(cBuf)
 	return cBuf
 }
@@ -277,7 +277,7 @@ func readCharBytes(byteArray []byte) [][]byte {
 func buildArr(cbyte byte) []byte {
 	bitArr := []byte{}
 	// read each byte
-	for j := 0; j <= Font8x16.Height; j++ {
+	for j := 0; j <= Font6x8.Height; j++ {
 		// shift bits right until all are read
 		bit := cbyte >> byte(j) & 1
 		bitArr = append(bitArr, bit)
