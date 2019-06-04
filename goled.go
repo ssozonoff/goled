@@ -67,7 +67,7 @@ type DisplayBuffer struct {
 	buffer        []byte
 }
 
-var conn, _ = i2c.NewI2C(OLED_ADDR, 0)
+var conn, _ = i2c.NewI2C(OLED_ADDR, 1)
 
 func (s *DisplayBuffer) Init() {
 	conn.WriteBytes(ssd1306InitSequence) //Init
